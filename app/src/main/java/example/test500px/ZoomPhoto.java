@@ -20,9 +20,9 @@ public class ZoomPhoto extends AppCompatActivity{
         setContentView(R.layout.zoomphoto);
 
 
-        ImageView zoom_photo = (ImageView) findViewById(R.id.zoom_photo);
-
+        //Work with intent
         Intent intent = getIntent();
+
         String name = intent.getStringExtra("NAME");
         String url = intent.getStringExtra("URL");
         String created_at = intent.getStringExtra("CREATED_AT");
@@ -30,14 +30,15 @@ public class ZoomPhoto extends AppCompatActivity{
         String total = intent.getStringExtra("Total");
 
 
-
-        //Log.d("my_log", "Parcelable " + image.getName() + "  " + image.getCreated_at() + "  " + image.getImageView_url());
-        Picasso.with(this).load(url).into(zoom_photo);
+        //Init data
+        ImageView zoom_photo = (ImageView) findViewById(R.id.zoom_photo);
         TextView name_photo = (TextView) findViewById(R.id.name_photo);
         TextView date_photo = (TextView) findViewById(R.id.date_photo);
         TextView number = (TextView) findViewById(R.id.number);
 
 
+        //Fill in data
+        Picasso.with(this).load(url).into(zoom_photo);
         number.setText(position + " / " + total);
         name_photo.setText(name);
         date_photo.setText(created_at);

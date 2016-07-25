@@ -43,23 +43,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //Init toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Init recyclerView and items
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         images = new ArrayList<Gallery_Image>();
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
 
+        //Parsing JSON
         new ParseJSON().execute();
 
-        galleryAdapter = new GalleryAdapter(this, images);
 
+        galleryAdapter = new GalleryAdapter(this, images);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(galleryAdapter);
 
+        //Init Button
         final Button more = (Button) findViewById(R.id.more);
 
-
+        //Action for clicking button
         more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         private HttpURLConnection urlConnection = null;
         private String JSONline = "";
 
+
+        //Get JSON String
         @Override
         protected String doInBackground(Void... params) {
 
@@ -111,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             return JSONline;
         }
 
+        //Downloading items
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(JSONline);
@@ -139,17 +146,8 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("my_log", "test");
 
                     images.add(gallery_image);
-
-
-
                 }
-
-
                 galleryAdapter.notifyDataSetChanged();
-
-
-
-
             }
             catch (Exception e)
             {
